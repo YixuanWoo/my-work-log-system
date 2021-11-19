@@ -23,7 +23,7 @@ class Ui_aboutUI(object):
         aboutUI.setMinimumSize(QtCore.QSize(274, 0))
         aboutUI.setMaximumSize(QtCore.QSize(274, 210))
         self.textBrowser = QtWidgets.QTextBrowser(aboutUI)
-        self.textBrowser.setEnabled(False)
+        
         self.textBrowser.setGeometry(QtCore.QRect(9, 9, 256, 192))
         self.textBrowser.setMaximumSize(QtCore.QSize(256, 192))
         self.textBrowser.setObjectName("textBrowser")
@@ -45,4 +45,4 @@ class Ui_aboutUI(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">数据库：SQLite</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">本软件已开源，源码地址：</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"www.baidu.com\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub地址</span></a></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://github.com/YixuanWoo/my-work-log-system\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub地址</span></a></p></body></html>"))
