@@ -126,7 +126,7 @@ class Ui_CreateRoom(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "创建房源"))
         self.label_4.setText(_translate("Form", "当前操作项目"))
         self.ShowProjLable.setText(_translate("Form", "？？？？"))
         self.label_3.setText(_translate("Form", "所属楼栋"))
