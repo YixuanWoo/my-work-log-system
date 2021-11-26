@@ -128,7 +128,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_2">
+           <widget class="QComboBox" name="viewCbox">
             <property name="font">
              <font>
               <family>宋体</family>
@@ -188,6 +188,11 @@
           </item>
           <item>
            <widget class="QPushButton" name="newRoomButton">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>新建房源</string>
             </property>
@@ -401,6 +406,18 @@
             </property>
            </spacer>
           </item>
+          <item>
+           <widget class="QPushButton" name="savelogbutton">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>保存日志</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -426,13 +443,6 @@
            <widget class="QPlainTextEdit" name="plainTextEdit">
             <property name="styleSheet">
              <string notr="true">background-color:#FFFFFF</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QScrollBar" name="verticalScrollBar">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
