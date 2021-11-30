@@ -1,5 +1,5 @@
 from sqlite3.dbapi2 import connect
-from PyQt5.QtWidgets import QApplication,QMainWindow,QMessageBox,QWidget
+from PyQt5.QtWidgets import QApplication,QMainWindow,QMessageBox, QTableWidgetItem,QWidget
 from main_ui import Ui_MainWindow
 from AboutUI import Ui_aboutUI
 from createProjectUI import Ui_create_Proj_ui
@@ -32,6 +32,7 @@ class Mainwindow(QMainWindow,QWidget):
 
         self.ui.tableWidget.removeRow(0)
         self.ui.tableWidget.removeColumn(1)
+        self.ui.tableWidget.removeColumn(0)
 
     #点击统计按钮所实现的功能
     def staticFunction(self):
@@ -64,9 +65,10 @@ class Mainwindow(QMainWindow,QWidget):
             self.ui.newRoomButton.setEnabled(False)
         else:
             self.ui.newRoomButton.setEnabled(True)
+    #加载功能的实现
     def loadRoomData(self):
         proj=str(self.ui.comboBox.currentText())
-
+        #根据视图选择对应的表格呈现方式
         if self.ui.viewCbox.currentText()=='全部':
             conn=sqlite3.connect(f'./Data/{proj}.sqlite')
             c=conn.cursor()
@@ -75,6 +77,25 @@ class Mainwindow(QMainWindow,QWidget):
             unitLst= fuction.exchangeToIntLst(unitNum)
             maxUnit=max(unitLst)
             print(maxUnit)
+            self.ui.tableWidget.setColumnCount(maxUnit+1)
+            c.execute("SELECT buildingNum FROM project;")
+            buildingNum=c.fetchall()
+            buildingNum=fuction.exchangeToIntLst(buildingNum)
+            buildingNum=buildingNum[0]
+            x=0
+            
+            for _ in range(buildingNum):
+                c.execute("SELECT floormax FROM building;")
+                floormax=c.fetchall()
+                floormax=fuction.exchangeToIntLst(floormax)
+                print(floormax)
+                floor=0
+                for item in floormax:
+                    floor+=item
+                self.ui.tableWidget.setRowCount(floor)
+                
+                
+            
             
 
 
@@ -150,8 +171,8 @@ class CreateRoomWindow(QWidget):
         roomNo=buildingNo+'-'+str(unit)+str(floor)+str(romNo)
         conn=sqlite3.connect(f'./Data/{self.ProjectText}.sqlite')
         c=conn 
-         
-        c.execute(f"insert into room(No,floor,unit,building,sell) VALUES({roomNo},{floor},{unit},{buildingNo},False)")
+        #写入房间信息 
+        c.execute(f"insert into room(No,floor,unit,building,pN,sell) VALUES({roomNo},{floor},{unit},{buildingNo},{romNo},False)")
         conn.commit()                   #数据库在操作结束后必须通过commit方法上传才能生效
         conn.close()   
         Reply = QMessageBox.about(self,'翊瑄的消息：','创建成功') 
