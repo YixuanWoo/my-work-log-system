@@ -76,29 +76,41 @@ class Mainwindow(QMainWindow,QWidget):
             unitNum=c.fetchall()
             unitLst= fuction.exchangeToIntLst(unitNum)
             maxUnit=max(unitLst)
-            print(maxUnit)
-            self.ui.tableWidget.setColumnCount(maxUnit+1)
+            #print(maxUnit)测试代码
+            self.ui.tableWidget.setColumnCount(maxUnit)
+            #将要定义的表格行名称输出成表格
+            unitTitleLst=[]
+            for u in range(1,maxUnit+1):
+                title=str(u)+'单元'
+                unitTitleLst.append(title)
+            self.ui.tableWidget.setHorizontalHeaderLabels(unitTitleLst)
+
+            #根据楼层数创建表格的行数。
             c.execute("SELECT buildingNum FROM project;")
             buildingNum=c.fetchall()
             buildingNum=fuction.exchangeToIntLst(buildingNum)
             buildingNum=buildingNum[0]
-            x=0
             
-            for _ in range(buildingNum):
-                c.execute("SELECT floormax FROM building;")
-                floormax=c.fetchall()
-                floormax=fuction.exchangeToIntLst(floormax)
-                print(floormax)
-                floor=0
-                for item in floormax:
-                    floor+=item
-                self.ui.tableWidget.setRowCount(floor)
-                
-                
-            
-            
+            #创建行
+            c.execute("SELECT floormax FROM building;")
+            floormax=c.fetchall()
+            floormax=fuction.exchangeToIntLst(floormax)
+            print(floormax)
+            floor=0
+            buildingTitleLst=[]
+            for b in range (1,buildingNum+1):
+                floor+=floormax[b-1]
+                for x in range(1,floormax[b-1]+1):
+                    BT=str(x)+'楼'
+                    buildingTitleLst.append(BT)
+            print(buildingTitleLst)
+            print(floor)
 
+            self.ui.tableWidget.setRowCount(floor)
+            self.ui.tableWidget.setVerticalHeaderLabels(buildingTitleLst)
 
+                
+        #按照楼栋分别显示每一栋楼的
         elif self.ui.comboBox_3.currentText()=='按楼栋':
             pass
 
@@ -155,7 +167,7 @@ class CreateRoomWindow(QWidget):
         c.execute("SELECT No FROM building;")
         buildingNo=c.fetchall()
         print(buildingNo)
-        buildinglst=fuction.exchangeToLst(buildingNo)               #数据转化为字符串类型并输出到buildinglst
+        buildinglst=fuction.exchangeToIntLst(buildingNo)               #数据转化为字符串类型并输出到buildinglst
         #print(buildinglst) 这是一行测试代码，用于测试buildinglst变量的输出内容
         c.close()
         return buildinglst
