@@ -49,7 +49,7 @@ def createProjectSQLite(name,address,buildingNum,noStart,nostop):
         building int not null,
         floor int not null,
         unit int not null,
-        pN int not null
+        pN int not null,
         area real,
         sell blob,
         buyer text)''')

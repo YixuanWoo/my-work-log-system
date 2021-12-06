@@ -103,11 +103,24 @@ class Mainwindow(QMainWindow,QWidget):
                 for x in range(1,floormax[b-1]+1):
                     BT=str(x)+'楼'
                     buildingTitleLst.append(BT)
-            print(buildingTitleLst)
-            print(floor)
+            
 
             self.ui.tableWidget.setRowCount(floor)
             self.ui.tableWidget.setVerticalHeaderLabels(buildingTitleLst)
+            c.execute("SELECT pN FROM room;")
+            pn=c.fetchall()
+            pn=fuction.exchangeToIntLst(pn)
+            pnmax=max(pn)
+            print(pnmax)
+            c.execute(f"SELECT unit FROM room WHERE pN={pnmax}")
+            unit=c.fetchall()
+            unit=fuction.exchangeToIntLst(unit)
+            unit=list(set(unit))
+            print(unit)
+            for i in unit:
+                for _ in range(pnmax):
+                    self.ui.tableWidget.insertColumn(i)
+                self.ui.tableWidget.setSpan(0,i,0,i+pnmax)
 
                 
         #按照楼栋分别显示每一栋楼的
@@ -167,8 +180,8 @@ class CreateRoomWindow(QWidget):
         c.execute("SELECT No FROM building;")
         buildingNo=c.fetchall()
         print(buildingNo)
-        buildinglst=fuction.exchangeToIntLst(buildingNo)               #数据转化为字符串类型并输出到buildinglst
-        #print(buildinglst) 这是一行测试代码，用于测试buildinglst变量的输出内容
+        buildinglst=fuction.exchangeTostrLst(buildingNo)               #数据转化为字符串类型并输出到buildinglst
+        print(buildinglst) #这是一行测试代码，用于测试buildinglst变量的输出内容
         c.close()
         return buildinglst
         
