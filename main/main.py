@@ -1,4 +1,6 @@
 from sqlite3.dbapi2 import connect
+from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication,QMainWindow,QMessageBox, QTableWidgetItem,QWidget
 from main_ui import Ui_MainWindow
 from AboutUI import Ui_aboutUI
@@ -79,11 +81,8 @@ class Mainwindow(QMainWindow,QWidget):
             #print(maxUnit)测试代码
             self.ui.tableWidget.setColumnCount(maxUnit)
             #将要定义的表格行名称输出成表格
-            unitTitleLst=[]
-            for u in range(1,maxUnit+1):
-                title=str(u)+'单元'
-                unitTitleLst.append(title)
-            self.ui.tableWidget.setHorizontalHeaderLabels(unitTitleLst)
+            
+            
 
             #根据楼层数创建表格的行数。
             c.execute("SELECT buildingNum FROM project;")
@@ -104,9 +103,22 @@ class Mainwindow(QMainWindow,QWidget):
                     BT=str(x)+'楼'
                     buildingTitleLst.append(BT)
             
-
+            
             self.ui.tableWidget.setRowCount(floor)
             self.ui.tableWidget.setVerticalHeaderLabels(buildingTitleLst)
+
+
+            unitTitleLst=[]
+            for u in range(1,maxUnit+1):
+                title=str(u)+'单元'
+                unitTitleLst.append(title)
+            for x in range(maxUnit):
+                item = QTableWidgetItem(unitTitleLst[x])
+                item.setTextAlignment(Qt.AlignRight | Qt.AlignBottom)
+                self.ui.tableWidget.setItem(0,x,item)
+
+
+                
             c.execute("SELECT pN FROM room;")
             pn=c.fetchall()
             pn=fuction.exchangeToIntLst(pn)
@@ -117,10 +129,7 @@ class Mainwindow(QMainWindow,QWidget):
             unit=fuction.exchangeToIntLst(unit)
             unit=list(set(unit))
             print(unit)
-            for i in unit:
-                for _ in range(pnmax):
-                    self.ui.tableWidget.insertColumn(i)
-                self.ui.tableWidget.setSpan(0,i,0,i+pnmax)
+            
 
                 
         #按照楼栋分别显示每一栋楼的

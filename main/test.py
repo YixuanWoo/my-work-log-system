@@ -22,12 +22,12 @@ class CellTextAlignment(QWidget):
 
         tableWidget.setHorizontalHeaderLabels(['姓名', '性别', '年龄'])
         Item1 = QTableWidgetItem('老王')
-
+        
         # 设置单元格对齐方式：常量在Qt中
         Item1.setTextAlignment(Qt.AlignRight | Qt.AlignBottom)
         tableWidget.setItem(0, 0, Item1)
 
-        tableWidget.setSpan(0, 0, 2, 2)
+        tableWidget.setSpan(1, 1, 1, 2)
 
         self.setLayout(layout)
 
